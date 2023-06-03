@@ -1,6 +1,5 @@
-package com.codingbatapi.entity;
+package com.codingbatapi.payload;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,15 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Users {
+public class UsersDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    @Column(unique = true)
+    @NotNull(message = "Email does not to be empty")
     private String email;
 
+    @NotNull(message = "Password does not to be empty")
     private String password;
 }
