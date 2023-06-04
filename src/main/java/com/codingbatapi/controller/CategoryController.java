@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController("/api/category")
+@RestController("/api/categories")
 public class CategoryController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class CategoryController {
      * @return Category
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategory(@PathVariable Integer id){
+    public ResponseEntity<Category> getCategories(@PathVariable Integer id){
         Category category = categoryService.getCategory(id);
         return ResponseEntity.ok(category);
     }
@@ -50,7 +50,7 @@ public class CategoryController {
      * @return ApiResponse
      */
     @PostMapping
-    public ResponseEntity<ApiResponse> addCategory(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<ApiResponse> addCategories(@RequestBody CategoryDto categoryDto){
         ApiResponse apiResponse = categoryService.addCategory(categoryDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
     }
@@ -62,7 +62,7 @@ public class CategoryController {
      * @return ApiResponse
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> editCategory(@Valid @RequestBody CategoryDto categoryDto, Integer id){
+    public ResponseEntity<ApiResponse> editCategories(@Valid @RequestBody CategoryDto categoryDto, @PathVariable Integer id){
         ApiResponse editCategory = categoryService.editCategory(categoryDto, id);
         return ResponseEntity.status(editCategory.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(editCategory);
     }

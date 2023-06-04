@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController("/api/language")
+@RestController("/api/languages")
 public class LanguageController {
 
     @Autowired
@@ -48,7 +48,7 @@ public class LanguageController {
      * @return ApiResponse
      */
     @PostMapping
-    public ResponseEntity<ApiResponse> addLanguage(@RequestBody Language language){
+    public ResponseEntity<ApiResponse> addLanguages(@RequestBody Language language){
         ApiResponse apiResponse = languageService.addLanguage(language);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
     }
@@ -60,7 +60,7 @@ public class LanguageController {
      * @return ApiResponse
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> editLanguage(@Valid @RequestBody Language language, @PathVariable Integer id){
+    public ResponseEntity<ApiResponse> editLanguages(@Valid @RequestBody Language language, @PathVariable Integer id){
         ApiResponse apiResponse = languageService.editLanguage(language, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(apiResponse);
     }
@@ -71,7 +71,7 @@ public class LanguageController {
      * @return ApiResponse
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> deleteLanguage(@PathVariable Integer id){
+    public ResponseEntity<ApiResponse> deleteLanguages(@PathVariable Integer id){
         ApiResponse apiResponse = languageService.deleteLanguage(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(apiResponse);
     }
