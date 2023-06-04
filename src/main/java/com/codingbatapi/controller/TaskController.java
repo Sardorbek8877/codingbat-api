@@ -1,8 +1,9 @@
 package com.codingbatapi.controller;
 
-import com.codingbatapi.entity.Language;
+import com.codingbatapi.entity.Task;
 import com.codingbatapi.payload.ApiResponse;
-import com.codingbatapi.service.LanguageService;
+import com.codingbatapi.payload.TaskDto;
+import com.codingbatapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,64 +16,64 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController("/api/language")
-public class LanguageController {
+@RestController("/api/task")
+public class TaskController {
 
     @Autowired
-    LanguageService languageService;
+    TaskService taskService;
 
     /**
-     * GetLanguages
-     * @return List<Language>
+     * Get Tasks
+     * @return List<Task>
      */
     @GetMapping
-    public ResponseEntity<List<Language>> getLanguages(){
-        List<Language> languages = languageService.getLanguages();
-        return ResponseEntity.ok(languages);
+    public ResponseEntity<List<Task>> getTasks(){
+        List<Task> tasks = taskService.getTasks();
+        return ResponseEntity.ok(tasks);
     }
 
     /**
-     * Get Language By id
+     * Get Task By id
      * @param id
-     * @return Language
+     * @return Task
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Language> getLanguageById(@PathVariable Integer id){
-        Language languageById = languageService.getLanguageById(id);
-        return ResponseEntity.ok(languageById);
+    public ResponseEntity<Task> getTaskById(@PathVariable Integer id){
+        Task taskById = taskService.getTaskById(id);
+        return ResponseEntity.ok(taskById);
     }
 
     /**
-     * Add Language
-     * @param language
+     * ADD Task
+     * @param taskDto
      * @return ApiResponse
      */
     @PostMapping
-    public ResponseEntity<ApiResponse> addLanguage(@RequestBody Language language){
-        ApiResponse apiResponse = languageService.addLanguage(language);
+    public ResponseEntity<ApiResponse> addTask(@Valid @RequestBody TaskDto taskDto){
+        ApiResponse apiResponse = taskService.addTask(taskDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     /**
-     * EDIt Language
-     * @param language
+     * EDIT Task
+     * @param taskDto
      * @param id
      * @return ApiResponse
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> editLanguage(@Valid @RequestBody Language language, @PathVariable Integer id){
-        ApiResponse apiResponse = languageService.editLanguage(language, id);
+    public ResponseEntity<ApiResponse> editTask(@Valid @RequestBody TaskDto taskDto, Integer id){
+        ApiResponse apiResponse = taskService.editTask(taskDto, id);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     /**
-     * Delete Language
+     * Delete Task
      * @param id
      * @return ApiResponse
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> deleteLanguage(@PathVariable Integer id){
-        ApiResponse apiResponse = languageService.deleteLanguage(id);
+    public ResponseEntity<ApiResponse> deleteTask(@PathVariable Integer id){
+        ApiResponse apiResponse = taskService.deleteTask(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(apiResponse);
     }
 
